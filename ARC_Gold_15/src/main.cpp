@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       evanbadger                                                */
-/*    Created:      9/24/2025, 7:20:16 PM                                     */
+/*    Author:       Coby Smith                                                */
+/*    Created:      9/25/2025, 10:13:11 AM                                    */
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
@@ -13,7 +13,6 @@ using namespace vex;
 
 // A global instance of competition
 competition Competition;
-controler controler;
 
 // define your global instances of motors and other devices here
 
@@ -62,7 +61,6 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
-    
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
