@@ -1,3 +1,4 @@
+#pragma once
 #include "vex.h"
 
 using namespace vex;
@@ -22,6 +23,9 @@ class driveTrain{
 
     public:
 
-    void drive();
+
+    void drive(float distance);
+
+
     void turn();
 };
