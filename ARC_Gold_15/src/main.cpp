@@ -14,7 +14,7 @@ using namespace vex;
 // A global instance of competition
 competition Competition;
 
-
+driveTrain chasis;
 void pre_auton(void) {
 
 
@@ -31,7 +31,7 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
-    
+    chasis.drive();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
