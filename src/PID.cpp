@@ -27,31 +27,6 @@ public:
         this-> Kd = Kd;
     }
 
-    //Accessor Functions
-    getKp() const {
-        return Kp;
-    }
-    getKi() const {
-        return Ki;
-    }
-    getKd() const {
-        return Kd;
-    }
-
-    //Mutator functions
-
-    setKp(Kp) {
-        this-> Kp = Kp;
-    }
-
-    setKi(Ki) {
-        this-> Ki = Ki;
-    }
-
-    setKd(Kd) {
-        this-> Kd = Kd;
-    }
-
     
     /// @brief This is the function that calculates PID 
     /// @param error 
@@ -77,11 +52,9 @@ public:
     /// @return 
     bool isSettled(){    
         if(timeSpentsettled > 3000)
-        {
-            return true
-        }
+            return true;
         else 
-        return false
+            return false;
 
     }
 
