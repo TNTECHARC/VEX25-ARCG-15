@@ -32,4 +32,6 @@ class driveTrain{
     void turn();
 
     void driveDistance(float distance);
+
+    float getDriveTrainPosition();
 };
