@@ -53,4 +53,12 @@ void driveTrain::driveDistance(float distance)
     //(deg/360)*pi*wheelDiameter = inches
 }
 
-
+float driveTrain::getDriveTrainPosition() {
+    float position;
+    float posL = lDrive.position(degrees);
+    float posR = rDrive.position(degrees);
+    position = (posL + posR) / 2;
+    position = (position / 360) * M_PI * wheelDiameter;
+    
+    return position;
+}
