@@ -21,11 +21,15 @@ class driveTrain{
         //motor RMotor4 = motor(PORT8, false);
         motor_group rDrive = motor_group(RMotor1, RMotor2);
 
+        //float wheelDiameter;
+        float wheelDiameter;
+
     public:
+    
+    driveTrain(float wheelDiameter);
 
-
-    void drive();
-
-
+    void arcadeControls();
     void turn();
+
+    void driveDistance(float distance);
 };

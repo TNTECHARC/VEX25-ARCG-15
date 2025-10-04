@@ -1,27 +1,16 @@
-# include "vex.h"
+# include "PID.h"
 
-using namespace vex;
-
-
-class PID {
-
-private:
-    float Kp, Ki, Kd, Integral, Derivative, previousError; //PID Constants 
-    float settleError = .5; //distance from point that we want the bot to stop (half an inch)
-    float timeSpentsettled = 0;
-
-public:
     //Default Constructor
-    PID () { 
+    PID::PID () { 
         Kp = 0.00;
         Ki = 0.00;
         Kd = 0.00;
         Integral = 0.00;
         Derivative = 0.00;
-         
+        
     }
     //Defines the parts of PID for the function
-    PID (float kP, float Ki, float Kd, float Integral) {
+    PID::PID (float kP, float Ki, float Kd, float Integral) {
         this-> Kp = Kp;
         this-> Ki = Ki;
         this-> Kd = Kd;
@@ -31,7 +20,7 @@ public:
     /// @brief This is the function that calculates PID 
     /// @param error 
     /// @return 
-    float calculatePID(float error) {
+    float PID::calculatePID(float error) {
         float PID;
 
         Integral += error;
@@ -50,7 +39,7 @@ public:
 
     /// @brief If it spends more than 3 secs settling it'll stop
     /// @return 
-    bool isSettled(){    
+    bool PID::isSettled(){    
         if(timeSpentsettled > 3000)
             return true;
         else 
@@ -58,7 +47,6 @@ public:
 
     }
 
-};
 
 
 

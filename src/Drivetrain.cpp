@@ -2,13 +2,12 @@
 #include "driveTrain.h"
 
 
-// drives robot forward and back
-// void driveTrain::drive2() {
-//     if(controller1.Axis3.value() > 5 || controller1.Axis3.value() < -5 ){
-//         lDrive.spin(forward, controller1.Axis3.value(), rpm);
-//         rDrive.spin(forward, controller1.Axis3.value(), rpm);  
-//     }
-// }
+driveTrain::driveTrain(float wheelDiameter)
+{
+    this-> wheelDiameter = wheelDiameter;
+}
+
+
 // turns robot L & R
 void driveTrain::turn() {
     if(controller1.Axis1.value() > 5 || controller1.Axis1.value() < -5){
@@ -16,7 +15,7 @@ void driveTrain::turn() {
         rDrive.spin(reverse, controller1.Axis1.value(), rpm);
     }
 }  
-void driveTrain::drive() {
+void driveTrain::arcadeControls() {
     float axis2 = controller1.Axis3.position(percent);
     float axis1 = controller1.Axis1.position(percent);
     if(controller1.Axis3.position() > 5 || controller1.Axis3.position() < -5 || controller1.Axis1.position() > 5 || controller1.Axis1.position() < -5){
@@ -24,8 +23,15 @@ void driveTrain::drive() {
         rDrive.spin(forward, axis1 - axis2, percent); 
     }
     else {
-    lDrive.spin(forward, 0, percent);
-    rDrive.spin(forward, 0, percent);
-}    
+        lDrive.spin(forward, 0, percent);
+        rDrive.spin(forward, 0, percent);
+    }    
 
+}
+
+void driveTrain::driveDistance(float distance)
+{
+    PID drivePID;
+    
+    (lDrive.position(degrees) + rDrive.position(degrees)) / 2;
 }
