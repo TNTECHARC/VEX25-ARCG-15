@@ -34,12 +34,12 @@ void driveTrain::arcadeControls() {
 void driveTrain::driveDistance(float distance)
 {
     PID drivePID(1, 1, 1);
-    float current;
+    float current = getDriveTrainPosition();
     float error = distance - current;
 
     while(!drivePid.isSettled())
     {
-        current;
+        current = getDriveTrainPosition();
         error = distance - current;
         float output = drivePID.calculatePID(error);
 
@@ -50,7 +50,6 @@ void driveTrain::driveDistance(float distance)
     }
     lDrive.spin(forward, 0, volts);
     rDrive.spin(forward, 0, volts);
-    //(deg/360)*pi*wheelDiameter = inches
 }
 
 float driveTrain::getDriveTrainPosition() {
