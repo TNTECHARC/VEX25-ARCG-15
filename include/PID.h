@@ -19,7 +19,7 @@ public:
         
     }
     //Defines the parts of PID for the function
-    PID (float kP, float Ki, float Kd, float Integral) {
+    PID (float kP, float Ki, float Kd) {
         this-> Kp = Kp;
         this-> Ki = Ki;
         this-> Kd = Kd;

@@ -1,5 +1,6 @@
 #include "vex.h"
 #include "driveTrain.h"
+#include "PID.h"
 
 
 driveTrain::driveTrain(float wheelDiameter)
@@ -28,10 +29,28 @@ void driveTrain::arcadeControls() {
     }    
 
 }
-
+/// @brief PID drive for aunton
+/// @param distance in inches wanting to travel
 void driveTrain::driveDistance(float distance)
 {
-    PID drivePID;
-    
-    (lDrive.position(degrees) + rDrive.position(degrees)) / 2;
+    PID drivePID(1, 1, 1);
+    float current;
+    float error = distance - current;
+
+    while(!drivePid.isSettled())
+    {
+        current;
+        error = distance - current;
+        float output = drivePID.calculatePID(error);
+
+        lDrive.spin(forward, output, volts);
+        rDrive.spin(forward, output, volts);
+
+        wait(10, msec);
+    }
+    lDrive.spin(forward, 0, volts);
+    rDrive.spin(forward, 0, volts);
+    //(deg/360)*pi*wheelDiameter = inches
 }
+
+
