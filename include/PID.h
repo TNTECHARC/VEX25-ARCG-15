@@ -10,20 +10,9 @@ private:
 
 public:
     //Default Constructor
-    PID () { 
-        Kp = 0.00;
-        Ki = 0.00;
-        Kd = 0.00;
-        Integral = 0.00;
-        Derivative = 0.00;
-        
-    }
+    PID();
     //Defines the parts of PID for the function
-    PID (float kP, float Ki, float Kd) {
-        this-> Kp = Kp;
-        this-> Ki = Ki;
-        this-> Kd = Kd;
-    }
+    PID(float kP, float Ki, float Kd);
 
     
     /// @brief This is the function that calculates PID 

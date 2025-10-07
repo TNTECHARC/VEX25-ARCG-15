@@ -37,19 +37,19 @@ void driveTrain::driveDistance(float distance)
     float current = getDriveTrainPosition();
     float error = distance - current;
 
-    while(!drivePid.isSettled())
+    while(!drivePID.isSettled())
     {
         current = getDriveTrainPosition();
         error = distance - current;
         float output = drivePID.calculatePID(error);
 
-        lDrive.spin(forward, output, volts);
-        rDrive.spin(forward, output, volts);
+        lDrive.spin(forward, output, volt);
+        rDrive.spin(forward, output, volt);
 
         wait(10, msec);
     }
-    lDrive.spin(forward, 0, volts);
-    rDrive.spin(forward, 0, volts);
+    lDrive.spin(forward, 0, volt);
+    rDrive.spin(forward, 0, volt);
 }
 
 float driveTrain::getDriveTrainPosition() {
