@@ -21,8 +21,12 @@ class driveTrain{
         //motor RMotor4 = motor(PORT8, false);
         motor_group rDrive = motor_group(RMotor1, RMotor2);
 
+        //inertial sensor
+        isensor Inertial = inertial(PORT6);
+
         //float wheelDiameter;
         float wheelDiameter;
+
 
     public:
     

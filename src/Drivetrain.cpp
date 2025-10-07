@@ -34,19 +34,26 @@ void driveTrain::arcadeControls() {
 void driveTrain::driveDistance(float distance)
 {
     PID drivePID(1, 1, 1);
+    PID angularPID(1, 1, 1);
     float current = getDriveTrainPosition();
+    distance = current + distance;
     float error = distance - current;
+    float startHeading = Inertial.heading();
+    float anglularError = startHeading - Inertial.heading();
 
-    while(!drivePID.isSettled())
-    {
+    while(!drivePid.isSettled()){
+
         current = getDriveTrainPosition();
         error = distance - current;
         float output = drivePID.calculatePID(error);
 
-        lDrive.spin(forward, output, volt);
-        rDrive.spin(forward, output, volt);
-
+        anglularError = startHeading - Inertial.heading();
+        float correction = angularPID.calculatePID(anglularError);
+        
+        lDrive.spin(forward, output + correction, volts);
+        rDrive.spin(forward, output - correction, volts);
         wait(10, msec);
+        
     }
     lDrive.spin(forward, 0, volt);
     rDrive.spin(forward, 0, volt);
