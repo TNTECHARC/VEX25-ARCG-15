@@ -6,6 +6,8 @@
 driveTrain::driveTrain(float wheelDiameter)
 {
     this-> wheelDiameter = wheelDiameter;
+    Inertial.calibrate();
+
 }
 
 
@@ -35,8 +37,8 @@ void driveTrain::arcadeControls() {
 /// @param distance in inches wanting to travel
 void driveTrain::driveDistance(float distance)
 {
-    PID drivePID(0.5, 0.01, 5);
-    PID angularPID(0.4, 0, 1);
+    PID drivePID(10, 0.05, 25);
+    PID angularPID(1.5, 0, 1);
     float current = getDriveTrainPosition();
     distance = current + distance;
     float error = distance - current;
@@ -52,6 +54,10 @@ void driveTrain::driveDistance(float distance)
         anglularError = fmod(startHeading - Inertial.heading(), 180);
         float correction = angularPID.calculatePID(anglularError);
         
+        //clamp correction and output to between -12 and 12
+        correction = clamp(-6, 6, correction);
+        output = clamp(-12, 12, output);
+
         lDrive.spin(forward, output + correction, volt);
         rDrive.spin(forward, output - correction, volt);
         wait(10, msec);

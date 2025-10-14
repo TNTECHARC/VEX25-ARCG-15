@@ -6,9 +6,9 @@
         Ki = 0.00;
         Kd = 0.00;
         Integral = 0.00;
-        Derivative = 0.00;
-        
+        Derivative = 0.00; 
     }
+
     //Defines the parts of PID for the function
     PID::PID (float kP, float Ki, float Kd) {
         this-> Kp = Kp;
@@ -25,11 +25,16 @@
 
         Integral += error;
         Derivative = error - previousError;
+
+        if((previousError > 0 && error < 0) || (previousError < 0 && error > 0)) {
+            Integral = 0;
+        }
+
         PID = (Kp*error) + (Ki*Integral) + (Kd*Derivative);
         previousError = error;
         if (fabs(error) < settleError)
         {
-            timeSpentsettled ++;
+            timeSpentsettled++;
         }
         else 
             timeSpentsettled = 0;
