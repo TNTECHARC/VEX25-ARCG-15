@@ -41,7 +41,7 @@ void driveTrain::driveDistance(float distance)
     float startHeading = Inertial.heading();
     float anglularError = startHeading - Inertial.heading();
 
-    while(!drivePid.isSettled()){
+    while(!drivePID.isSettled()){
 
         current = getDriveTrainPosition();
         error = distance - current;
@@ -50,8 +50,8 @@ void driveTrain::driveDistance(float distance)
         anglularError = startHeading - Inertial.heading();
         float correction = angularPID.calculatePID(anglularError);
         
-        lDrive.spin(forward, output + correction, volts);
-        rDrive.spin(forward, output - correction, volts);
+        lDrive.spin(forward, output + correction, volt);
+        rDrive.spin(forward, output - correction, volt);
         wait(10, msec);
         
     }
