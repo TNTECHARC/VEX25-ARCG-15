@@ -22,22 +22,20 @@ class driveTrain{
         motor_group rDrive = motor_group(RMotor1, RMotor2);
 
         //inertial sensor
-        isensor Inertial = inertial(PORT6);
+        inertial Inertial = inertial(PORT6);
 
         //float wheelDiameter;
         float wheelDiameter;
 
-
     public:
     
-    driveTrain(float wheelDiameter);
+        driveTrain(float wheelDiameter);
+        void arcadeControls();
+        void turn();
+        void driveDistance(float distance);
+        float getDriveTrainPosition();
+        float clamp(float, float, float);
 
-    void arcadeControls();
-    void turn();
-
-    void driveDistance(float distance);
-
-    float getDriveTrainPosition();
 };
 
 

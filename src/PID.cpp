@@ -27,7 +27,7 @@
         Derivative = error - previousError;
         PID = (Kp*error) + (Ki*Integral) + (Kd*Derivative);
         previousError = error;
-        if (error < settleError)
+        if (fabs(error) < settleError)
         {
             timeSpentsettled ++;
         }

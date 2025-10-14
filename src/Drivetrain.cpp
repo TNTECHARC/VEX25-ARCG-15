@@ -29,12 +29,14 @@ void driveTrain::arcadeControls() {
     }    
 
 }
+
+
 /// @brief PID drive for aunton
 /// @param distance in inches wanting to travel
 void driveTrain::driveDistance(float distance)
 {
-    PID drivePID(1, 1, 1);
-    PID angularPID(1, 1, 1);
+    PID drivePID(0.5, 0.01, 5);
+    PID angularPID(0.4, 0, 1);
     float current = getDriveTrainPosition();
     distance = current + distance;
     float error = distance - current;
@@ -47,7 +49,7 @@ void driveTrain::driveDistance(float distance)
         error = distance - current;
         float output = drivePID.calculatePID(error);
 
-        anglularError = startHeading - Inertial.heading();
+        anglularError = fmod(startHeading - Inertial.heading(), 180);
         float correction = angularPID.calculatePID(anglularError);
         
         lDrive.spin(forward, output + correction, volt);
@@ -67,4 +69,13 @@ float driveTrain::getDriveTrainPosition() {
     position = (position / 360) * M_PI * wheelDiameter;
     
     return position;
+}
+
+float driveTrain::clamp(float min, float max, float input) {
+    if(input < min)
+        input = min;
+    if(input > max) 
+        input = max;
+
+    return input;
 }
