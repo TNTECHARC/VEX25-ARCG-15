@@ -10,7 +10,7 @@
     }
 
     //Defines the parts of PID for the function
-    PID::PID (float kP, float Ki, float Kd) {
+    PID::PID (float Kp, float Ki, float Kd) {
         this-> Kp = Kp;
         this-> Ki = Ki;
         this-> Kd = Kd;
