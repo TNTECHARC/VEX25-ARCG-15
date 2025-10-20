@@ -1,6 +1,6 @@
 # include "PID.h"
 
-    //Default Constructor
+    /// @brief Default Constructor
     PID::PID () { 
         Kp = 0.00;
         Ki = 0.00;
@@ -9,17 +9,20 @@
         Derivative = 0.00; 
     }
 
-    //Defines the parts of PID for the function
+    /// @brief Defines the parts of PID for the function
+    /// @param Kp Proportion Constant
+    /// @param Ki Integral Constant
+    /// @param Kd Derivative Constant
     PID::PID (float Kp, float Ki, float Kd) {
-        this-> Kp = Kp;
-        this-> Ki = Ki;
-        this-> Kd = Kd;
+        this->Kp = Kp;
+        this->Ki = Ki;
+        this->Kd = Kd;
     }
 
     
     /// @brief This is the function that calculates PID 
-    /// @param error 
-    /// @return 
+    /// @param error Where you want to be - where you are
+    /// @return PID output
     float PID::calculatePID(float error) {
         float PID;
 
@@ -32,20 +35,19 @@
 
         PID = (Kp*error) + (Ki*Integral) + (Kd*Derivative);
         previousError = error;
+
         if (fabs(error) < settleError)
-        {
-            timeSpentsettled++;
-        }
+            timeSpentSettled++;
         else 
-            timeSpentsettled = 0;
+            timeSpentSettled = 0;
 
         return PID;
     }
 
     /// @brief If it spends more than 3 secs settling it'll stop
-    /// @return 
+    /// @return True if settled, and false if not
     bool PID::isSettled(){    
-        if(timeSpentsettled > 3000)
+        if(timeSpentSettled > 3000)
             return true;
         else 
             return false;

@@ -6,26 +6,24 @@
 driveTrain::driveTrain(float wheelDiameter)
 {
     this-> wheelDiameter = wheelDiameter;
-    Inertial.calibrate();
+    inertSensor.calibrate();
 
 }
 
-
-// turns robot L & R
-void driveTrain::turn() {
-    if(controller1.Axis1.value() > 5 || controller1.Axis1.value() < -5){
-        lDrive.spin(forward, controller1.Axis1.value(), rpm);
-        rDrive.spin(reverse, controller1.Axis1.value(), rpm);
-    }
-}  
-void driveTrain::arcadeControls() {
+void driveTrain::arcadeControls() 
+{
+    // Get Joystick location values in percent
     float axis3 = controller1.Axis3.position(percent);
     float axis1 = controller1.Axis1.position(percent);
-    if(controller1.Axis3.position() > 5 || controller1.Axis3.position() < -5 || controller1.Axis1.position() > 5 || controller1.Axis1.position() < -5){
+
+    // If outside of deadzone, then move driveTrain accordingly, else set driveTrain to zero
+    if(controller1.Axis3.position() > 5 || controller1.Axis3.position() < -5 || controller1.Axis1.position() > 5 || controller1.Axis1.position() < -5)
+    {
         lDrive.spin(forward, axis3 + axis1, percent);
         rDrive.spin(forward, axis3 - axis1, percent); 
     }
-    else {
+    else 
+    {
         lDrive.spin(forward, 0, percent);
         rDrive.spin(forward, 0, percent);
     }    
@@ -33,40 +31,50 @@ void driveTrain::arcadeControls() {
 }
 
 
-/// @brief PID drive for aunton
-/// @param distance in inches wanting to travel
+/// @brief PID drive for auton
+/// @param distance inches wanting to travel
 void driveTrain::driveDistance(float distance)
 {
+    // Create PID instances
     PID drivePID(10, 0.05, 25);
     PID angularPID(1.5, 0, 1);
-    float current = getDriveTrainPosition();
-    distance = current + distance;
-    float error = distance - current;
-    float startHeading = Inertial.heading();
-    float angularError = startHeading - Inertial.heading();
 
-    while(!drivePID.isSettled()){
+    // Update distance value
+    distance = getDriveTrainPosition() + distance;
 
-        current = getDriveTrainPosition();
-        error = distance - current;
+    // Create starting position for the current heading
+    float startHeading = inertSensor.heading();
+
+    // Run motors using the given PID value till the drivePID has settled
+    while(!drivePID.isSettled())
+    {
+        // Distance PID Calculation
+        float current = getDriveTrainPosition();
+        float error = distance - current;
         float output = drivePID.calculatePID(error);
 
-        angularError = fmod(startHeading - Inertial.heading(), 180);
+        // Angular PID Calculation
+        float angularError = fmod(startHeading - inertSensor.heading(), 180);
         float correction = angularPID.calculatePID(angularError);
         
-        //clamp correction and output to between -12 and 12
+        // Clamp correction and output to between -12 and 12 volts
         correction = clamp(-6, 6, correction);
         output = clamp(-12, 12, output);
 
+        // Spin Drivetrain according to the PID Values
         lDrive.spin(forward, output + correction, volt);
         rDrive.spin(forward, output - correction, volt);
         wait(10, msec);
         
     }
+    
+    // Set driveTrain movement to 0 to prevent drift.
     lDrive.spin(forward, 0, volt);
     rDrive.spin(forward, 0, volt);
 }
 
+/// @brief Gets the current position from the driveTrain encoders
+/// @return The position in inches
 float driveTrain::getDriveTrainPosition() {
     float position;
     float posL = lDrive.position(degrees);
@@ -77,6 +85,11 @@ float driveTrain::getDriveTrainPosition() {
     return position;
 }
 
+/// @brief Clamps the input between two values
+/// @param min The minimum that input can be
+/// @param max The maximum that input can be
+/// @param input The number being clamped
+/// @return Input clamped between min and max
 float driveTrain::clamp(float min, float max, float input) {
     if(input < min)
         input = min;
