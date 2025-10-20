@@ -17,11 +17,11 @@ void driveTrain::turn() {
     }
 }  
 void driveTrain::arcadeControls() {
-    float axis2 = controller1.Axis3.position(percent);
+    float axis3 = controller1.Axis3.position(percent);
     float axis1 = controller1.Axis1.position(percent);
     if(controller1.Axis3.position() > 5 || controller1.Axis3.position() < -5 || controller1.Axis1.position() > 5 || controller1.Axis1.position() < -5){
-        lDrive.spin(forward, axis2 + axis1, percent);
-        rDrive.spin(forward, axis1 - axis2, percent); 
+        lDrive.spin(forward, axis3 + axis1, percent);
+        rDrive.spin(forward, axis3 - axis1, percent); 
     }
     else {
         lDrive.spin(forward, 0, percent);
@@ -41,7 +41,7 @@ void driveTrain::driveDistance(float distance)
     distance = current + distance;
     float error = distance - current;
     float startHeading = Inertial.heading();
-    float anglularError = startHeading - Inertial.heading();
+    float angularError = startHeading - Inertial.heading();
 
     while(!drivePID.isSettled()){
 
@@ -49,8 +49,8 @@ void driveTrain::driveDistance(float distance)
         error = distance - current;
         float output = drivePID.calculatePID(error);
 
-        anglularError = fmod(startHeading - Inertial.heading(), 180);
-        float correction = angularPID.calculatePID(anglularError);
+        angularError = fmod(startHeading - Inertial.heading(), 180);
+        float correction = angularPID.calculatePID(angularError);
         
         lDrive.spin(forward, output + correction, volt);
         rDrive.spin(forward, output - correction, volt);
