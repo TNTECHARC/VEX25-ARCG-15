@@ -4,7 +4,7 @@
 class PID {
 
 private:
-    float Kp, Ki, Kd, Integral, Derivative, previousError; //PID Constants 
+    float Kp, Ki, Kd, Integral = 0, Derivative = 0, previousError = 0; //PID Constants 
     float settleError = .5; //distance from point that we want the bot to stop (half an inch)
     float timeSpentsettled = 0;
 

@@ -21,10 +21,9 @@ void pre_auton(void) {
 }
 
 
-
 void autonomous(void) {
 
-  chasis.driveDistance(10);
+  chasis.driveDistance(1);
 }
 
 
