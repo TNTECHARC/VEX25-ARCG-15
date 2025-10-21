@@ -30,7 +30,7 @@ class driveTrain
     public:
 
         // Constructors
-        driveTrain(float wheelDiameter);
+        driveTrain(float wheelDiameter, motor lDrive, motor rDrive);
 
         // Functions
         void arcadeControls();

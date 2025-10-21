@@ -51,7 +51,7 @@ void driveTrain::driveDistance(float distance)
         // Distance PID Calculation
         float current = getDriveTrainPosition();
         float error = distance - current;
-        float output = drivePID.calculatePID(error);
+        float output = drivePID.calculatePID(error);  
 
         // Angular PID Calculation
         float angularError = fmod(startHeading - inertSensor.heading(), 180);
