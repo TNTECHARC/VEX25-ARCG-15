@@ -16,15 +16,16 @@ class driveTrain
         motor_group rDrive;
 
         // Inertial sensor
-        inertial inertSensor = inertial(PORT6);
+        inertial inertSensor;
 
         //float wheelDiameter;
         float wheelDiameter;
+        
 
     public:
 
         // Constructors
-        driveTrain(float wheelDiameter, motor lDrive, motor rDrive);
+        driveTrain(float wheelDiameter, motor_group lDrive, motor_group rDrive, int inertialPort);
 
         // Functions
         void arcadeControls();

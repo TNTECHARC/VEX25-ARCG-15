@@ -1,11 +1,9 @@
 #include "driveTrain.h"
 
 
-driveTrain::driveTrain(float wheelDiameter)
+driveTrain::driveTrain(float wheelDiameter, motor_group lDrive, motor_group rDrive, int inertialPort) : inertSensor(inertial(inertialPort)), lDrive(lDrive), rDrive(rDrive)
 {
     this-> wheelDiameter = wheelDiameter;
-    inertSensor.calibrate();
-
 }
 
 void driveTrain::arcadeControls() 
