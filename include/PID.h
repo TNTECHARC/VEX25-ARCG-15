@@ -15,7 +15,7 @@ class PID
 
         // Constructors
         PID();
-        PID(float kP, float Ki, float Kd);
+        PID(float Kp, float Ki, float Kd);
 
         // Functions
         float calculatePID(float error);

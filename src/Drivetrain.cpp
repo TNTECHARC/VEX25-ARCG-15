@@ -1,6 +1,4 @@
-#include "vex.h"
 #include "driveTrain.h"
-#include "PID.h"
 
 
 driveTrain::driveTrain(float wheelDiameter)
@@ -58,12 +56,12 @@ void driveTrain::driveDistance(float distance)
         float correction = angularPID.calculatePID(angularError);
         
         // Clamp correction and output to between -12 and 12 volts
-        correction = clamp(-6, 6, correction);
+        correction = clamp(-12, 12, correction);
         output = clamp(-12, 12, output);
 
         // Spin Drivetrain according to the PID Values
-        lDrive.spin(forward, output + correction, volt);
-        rDrive.spin(forward, output - correction, volt);
+        lDrive.spin(forward, output - correction, volt);
+        rDrive.spin(forward, output + correction, volt);
         wait(10, msec);
         
     }
