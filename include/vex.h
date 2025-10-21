@@ -6,6 +6,7 @@
 #include "v5.h"
 #include "v5_vcs.h"
 
+#include "robotConfig.h"
 #include "driveTrain.h"
 #include "PID.h"
 

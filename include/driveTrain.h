@@ -1,5 +1,6 @@
 #pragma once
 #include "vex.h"
+#include "PID.h"
 
 using namespace vex;
 
@@ -8,18 +9,11 @@ class driveTrain
 {
     private:
 
-        // Controller Instance
-        controller controller1;
-
         // Left drivetrain motors & group
-        motor LMotor1 = motor(PORT1, ratio6_1, false);
-        motor LMotor2 = motor(PORT11, ratio6_1, false);
-        motor_group lDrive = motor_group(LMotor1, LMotor2);
+        motor_group lDrive;
 
         // Right drivetrain motors & group
-        motor RMotor1 = motor(PORT10, ratio6_1, false);
-        motor RMotor2 = motor(PORT20, ratio6_1, false);
-        motor_group rDrive = motor_group(RMotor1, RMotor2);
+        motor_group rDrive;
 
         // Inertial sensor
         inertial inertSensor = inertial(PORT6);
@@ -37,7 +31,6 @@ class driveTrain
         void driveDistance(float distance);
         float getDriveTrainPosition();
         float clamp(float min, float max, float input);
-
 };
 
 

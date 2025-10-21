@@ -23,6 +23,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
 
+  wait(1, sec);
   chassis.driveDistance(1);
 }
 
